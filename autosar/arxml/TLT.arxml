@@ -32,6 +32,17 @@
                 </CLIENT-COM-SPEC>
               </REQUIRED-COM-SPECS>
             </R-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE UUID="">
+              <SHORT-NAME>PP_TLT_ModeSwitch</SHORT-NAME>
+              <PROVIDED-COM-SPECS>
+                <MODE-SWITCH-SENDER-COM-SPEC>
+                  <ENHANCED-MODE-API>false</ENHANCED-MODE-API>
+                  <MODE-GROUP-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">//IF_ModeSwitch/TLT_MODE</MODE-GROUP-REF>
+                  <QUEUE-LENGTH>2</QUEUE-LENGTH>
+                </MODE-SWITCH-SENDER-COM-SPEC>
+              </PROVIDED-COM-SPECS>
+              <PROVIDED-INTERFACE-TREF DEST="MODE-SWITCH-INTERFACE">//IF_ModeSwitch</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
           </PORTS>
           <INTERNAL-BEHAVIORS>
             <SWC-INTERNAL-BEHAVIOR>
@@ -93,6 +104,39 @@
           </RESOURCE-CONSUMPTION>
           <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/ARRoot/SPD/</BEHAVIOR-REF>
         </SWC-IMPLEMENTATION>
+      </ELEMENTS>
+    </AR-PACKAGE>
+    <AR-PACKAGE>
+      <SHORT-NAME>ModeGroupDeclarations</SHORT-NAME>
+      <ELEMENTS>
+        <MODE-DECLARATION-GROUP>
+          <SHORT-NAME>TLT_MODES</SHORT-NAME>
+          <MODE-DECLARATIONS>
+            <MODE-DECLARATION>
+              <SHORT-NAME>Start</SHORT-NAME>
+              <VALUE>1</VALUE>
+            </MODE-DECLARATION>
+            <MODE-DECLARATION>
+              <SHORT-NAME>Wait</SHORT-NAME>
+              <VALUE>2</VALUE>
+            </MODE-DECLARATION>
+            <MODE-DECLARATION>
+              <SHORT-NAME>Stop</SHORT-NAME>
+              <VALUE>3</VALUE>
+            </MODE-DECLARATION>
+          </MODE-DECLARATIONS>
+        </MODE-DECLARATION-GROUP>
+      </ELEMENTS>
+    </AR-PACKAGE>
+    <AR-PACKAGE>
+      <ELEMENTS>
+        <MODE-SWITCH-INTERFACE>
+          <SHORT-NAME>IF_ModeSwitch</SHORT-NAME>
+          <MODE-GROUP>
+            <SHORT-NAME>TLT_MODE</SHORT-NAME>
+            <TYPE-TREF DEST="MODE-DECLARATION-GROUP">/ModeGroupDeclarations/TLT_MODES</TYPE-TREF>
+          </MODE-GROUP>
+        </MODE-SWITCH-INTERFACE>
       </ELEMENTS>
     </AR-PACKAGE>
   </AR-PACKAGES>

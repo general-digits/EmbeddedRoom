@@ -37,6 +37,16 @@
               <SHORT-NAME>P_ServerPort</SHORT-NAME>
               <PROVIDED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/ARRoot/MyCSInterface</PROVIDED-INTERFACE-TREF>
             </P-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE>
+              <SHORT-NAME>RP_SPD_ModeSwitch</SHORT-NAME>
+              <REQUIRED-COM-SPECS>
+                <MODE-SWITCH-RECEIVER-COM-SPEC>
+                  <ENHANCED-MODE-API>false</ENHANCED-MODE-API>
+                  <MODE-GROUP-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">//IF_ModeSwitch/TLT_MODE</MODE-GROUP-REF>
+                </MODE-SWITCH-RECEIVER-COM-SPEC>
+              </REQUIRED-COM-SPECS>
+              <REQUIRED-INTERFACE-TREF DEST="MODE-SWITCH-INTERFACE">//IF_ModeSwitch</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
           </PORTS>
           <INTERNAL-BEHAVIORS>
             <SWC-INTERNAL-BEHAVIOR S="">
@@ -58,6 +68,39 @@
                     <TARGET-PROVIDED-OPERATION-REF DEST="CLIENT-SERVER-OPERATION">/ARRoot/MyCSInterface/Operation2</TARGET-PROVIDED-OPERATION-REF>
                   </OPERATION-IREF>
                 </OPERATION-INVOKED-EVENT>
+                <SWC-MODE-SWITCH-EVENT S="">
+                  <SHORT-NAME></SHORT-NAME>
+                  <CATEGORY></CATEGORY>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ARRoot/SPD//SPD_StartCallBk</START-ON-EVENT-REF>
+                  <ACTIVATION>ON-ENTRY</ACTIVATION>
+                  <MODE-IREFS>
+                    <MODE-IREF>
+                      <CONTEXT-PORT-REF DEST="R-PORT-PROTOTYPE">/ARRoot/SPD/RP_SPD_ModeSwitch</CONTEXT-PORT-REF>
+                      <CONTEXT-MODE-DECLARATION-GROUP-PROTOTYPE-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">//IF_ModeSwitch/TLT_MODE</CONTEXT-MODE-DECLARATION-GROUP-PROTOTYPE-REF>
+                      <TARGET-MODE-DECLARATION-REF DEST="MODE-DECLARATION">/ModeGroupDeclarations/TLT_MODES/Start</TARGET-MODE-DECLARATION-REF>
+                    </MODE-IREF>
+                  </MODE-IREFS>
+                </SWC-MODE-SWITCH-EVENT>
+                <SWC-MODE-SWITCH-EVENT>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ARRoot/SPD//SPD_WaitCallBk</START-ON-EVENT-REF>
+                  <MODE-IREFS>
+                    <MODE-IREF>
+                      <CONTEXT-PORT-REF DEST="R-PORT-PROTOTYPE">/ARRoot/SPD/RP_SPD_ModeSwitch</CONTEXT-PORT-REF>
+                      <CONTEXT-MODE-DECLARATION-GROUP-PROTOTYPE-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">//IF_ModeSwitch/TLT_MODE</CONTEXT-MODE-DECLARATION-GROUP-PROTOTYPE-REF>
+                      <TARGET-MODE-DECLARATION-REF DEST="MODE-DECLARATION">/ModeGroupDeclarations/TLT_MODES/Wait</TARGET-MODE-DECLARATION-REF>
+                    </MODE-IREF>
+                  </MODE-IREFS>
+                </SWC-MODE-SWITCH-EVENT>
+                <SWC-MODE-SWITCH-EVENT>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ARRoot/SPD//SPD_StopCallBk</START-ON-EVENT-REF>
+                  <MODE-IREFS>
+                    <MODE-IREF>
+                      <CONTEXT-PORT-REF DEST="R-PORT-PROTOTYPE">/ARRoot/SPD/RP_SPD_ModeSwitch</CONTEXT-PORT-REF>
+                      <CONTEXT-MODE-DECLARATION-GROUP-PROTOTYPE-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">//IF_ModeSwitch/TLT_MODE</CONTEXT-MODE-DECLARATION-GROUP-PROTOTYPE-REF>
+                      <TARGET-MODE-DECLARATION-REF DEST="MODE-DECLARATION">/ModeGroupDeclarations/TLT_MODES/Stop</TARGET-MODE-DECLARATION-REF>
+                    </MODE-IREF>
+                  </MODE-IREFS>
+                </SWC-MODE-SWITCH-EVENT>
               </EVENTS>
               <RUNNABLES>
                 <RUNNABLE-ENTITY>
@@ -72,7 +115,26 @@
                       </ACCESSED-VARIABLE>
                     </VARIABLE-ACCESS>
                   </DATA-SEND-POINTS>
+                  <MODE-ACCESS-POINTS>
+                    <MODE-ACCESS-POINT>
+                      <MODE-GROUP-IREF>
+                        <R-MODE-GROUP-IN-ATOMIC-SWC-INSTANCE-REF>
+                          <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/ARRoot/SPD/RP_SPD_ModeSwitch</CONTEXT-R-PORT-REF>
+                          <TARGET-MODE-GROUP-REF DEST="MODE-DECLARATION-GROUP-PROTOTYPE">//IF_ModeSwitch/TLT_MODE</TARGET-MODE-GROUP-REF>
+                        </R-MODE-GROUP-IN-ATOMIC-SWC-INSTANCE-REF>
+                      </MODE-GROUP-IREF>
+                    </MODE-ACCESS-POINT>
+                  </MODE-ACCESS-POINTS>
                   <SYMBOL>SPD_Runnable</SYMBOL>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>SPD_StartCallBk</SHORT-NAME>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>SPD_WaitCallBk</SHORT-NAME>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>SPD_StopCallBk</SHORT-NAME>
                 </RUNNABLE-ENTITY>
               </RUNNABLES>
             </SWC-INTERNAL-BEHAVIOR>
